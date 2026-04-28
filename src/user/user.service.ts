@@ -4,11 +4,11 @@ import { PrismaService } from '../prisma/prisma.service';
 import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
 @Injectable()
 export class UserService {
-   constructor(private readonly userRepo: UserRepository, private readonly prisma: PrismaService){}
+  constructor(private readonly userRepo: UserRepository, private readonly prisma: PrismaService) {}
 
-    getAllUsers(){
-        return this.userRepo.findAll();
-    }
+  getAllUsers() {
+    return this.userRepo.findAll();
+  }
 
     getUserById(id:number){
         const user =  this.userRepo.findOne(id);
