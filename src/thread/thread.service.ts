@@ -28,8 +28,8 @@ export class ThreadService {
     return this.threadRepo.deleteThread(id);
     };
 
-  async createThread(userId: number, data: CreateThreadDto) {
-    return this.threadRepo.createThread(userId, data);
+  async createThread(data: CreateThreadDto) {
+    return this.threadRepo.createThread(data);
   }
 
 

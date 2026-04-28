@@ -6,9 +6,13 @@ export class CreateThreadDto {
   title: string;
 
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   message: string;
+
+  @IsNumber()
+  @IsNotEmpty()
+  userId: number;
 
 }
 

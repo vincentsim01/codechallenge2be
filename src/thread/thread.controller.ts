@@ -40,7 +40,7 @@ export class ThreadController {
     // @Roles(Role.ADMIN)
   @Post()
   createThread(@Body() dto: CreateThreadDto) {
-    return this.threadService.createThread(1, dto); // temporary userId
+    return this.threadService.createThread(dto); // temporary userId
   }
 
 }

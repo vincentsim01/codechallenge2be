@@ -8,12 +8,12 @@ import { UpdateThreadDto } from './dto/update-thread.dto/update-thread.dto';
 export class ThreadRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createThread(userId: number, data: CreateThreadDto) {
+  async createThread(data: CreateThreadDto) {
     return this.prisma.thread.create({
       data: {
         title: data.title,
         message: data.message,
-        userId, 
+        userId: data.userId,
       },
     });
   }
