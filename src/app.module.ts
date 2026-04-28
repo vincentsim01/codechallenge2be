@@ -7,10 +7,15 @@ import { UserModule } from './user/user.module';
 import { ThreadController } from './thread/thread.controller';
 import { ThreadService } from './thread/thread.service';
 import { ThreadModule } from './thread/thread.module';
+import { AuthModule } from './auth/auth.module';
+import { AuthController } from './auth/auth.controller';
+import { AuthService } from './auth/auth.service';
+import { PrismaModule } from './prisma/prisma.module';
+import { PrismaService } from './prisma/prisma.service';
 
 @Module({
-  imports: [UserModule, ThreadModule],
-  controllers: [AppController, UserController, ThreadController],
-  providers: [AppService, UserService, ThreadService],
+  imports: [UserModule, ThreadModule, AuthModule, PrismaModule],
+  controllers: [AppController, UserController, ThreadController, AuthController],
+  providers: [AppService, UserService, ThreadService, AuthService, PrismaService],
 })
 export class AppModule {}

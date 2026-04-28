@@ -1,7 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { PrismaService } from '../prisma/prisma.service';
-import { UpdateUserDto } from './dto/update-user-dto/update-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
 @Injectable()
 export class UserService {
    constructor(private readonly userRepo: UserRepository, private readonly prisma: PrismaService){}
@@ -17,10 +17,11 @@ export class UserService {
     }
 
     findByEmail(email:string){
-        const user =  this.userRepo.findByEmail(email);
-        if(!user) throw new NotFoundException('User not found');
-        return user;
+        const client =  this.userRepo.findByEmail(email);
+        if(!client) throw new NotFoundException('client not found');
+        return client;
     }
+
 
     update(id: number, data: UpdateUserDto) {
     return this.userRepo.update(id, data);

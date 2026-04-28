@@ -36,6 +36,12 @@ export class UserRepository {
     });
   }
 
+    findByEmail(email: string) {
+    return this.prisma.user.findUnique({
+      where: { email },
+    });
+  }
+
   update(id: number, data: UpdateUserDto) {
     return this.prisma.user.update({
       where: { id },

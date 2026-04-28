@@ -60,7 +60,7 @@ export class AuthService {
   }
 
   async refreshTokens(userId: number, token: string) {
-    const user = await this.usersService.getClientById(userId);
+    const user = await this.usersService.getUserById(userId);
     if (!user || !user.refreshToken) throw new ForbiddenException('No no no!');
 
     const rTmatches = await bcrypt.compare(token, user.refreshToken);
