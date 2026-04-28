@@ -4,7 +4,6 @@ import { RolesGuard } from '../auth/guards/roles.guard';
 import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
 import { JwtAuthGuard } from 'src/auth/guards/jwt-auth.guard';
 import { Roles } from 'src/auth/decorators/roles.decorator';
-// import { OwnershipGuard } from 'src/auth/guards/ownership.guard';
 // import { Roles } from '../auth/guards/roles.guard';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { OwnershipGuard } from 'src/auth/guards/ownership.guard';
@@ -50,10 +49,10 @@ export class UserController {
   createUser(
     @Body()
     body: {
-      name: string,
-      email: string,
-      password: string,
-      role: 'ADMIN' | 'USER',
+      name: string;
+      email: string;
+      password: string;
+      role: 'ADMIN' | 'USER';
     },
   ) {
     return this.userService.createUser(body);
