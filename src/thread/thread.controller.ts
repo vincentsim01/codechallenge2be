@@ -1,5 +1,5 @@
 import { ThreadService } from '../thread/thread.service';
-import { Controller , Get, Param, Post, Body, UseGuards, Patch, Delete} from '@nestjs/common';
+import { Controller , Get, Param, Post, Body, UseGuards, Patch, Put, Delete} from '@nestjs/common';
 import { RolesGuard } from '../auth/guards/roles.guard';
 import { CreateThreadDto } from './dto/create-thread.dto/create-thread.dto'
 import { UpdateThreadDto } from './dto/update-thread.dto/update-thread.dto';
@@ -13,27 +13,27 @@ import { Role } from 'src/auth/decorators/roles.decorator';
 export class ThreadController {
   constructor(private readonly threadService: ThreadService) {}
 
-  @UseGuards(JwtAuthGuard, RolesGuard, OwnershipGuard)
-  @Roles(Role.ADMIN)
+  // @UseGuards(JwtAuthGuard, RolesGuard, OwnershipGuard)
+  // @Roles(Role.ADMIN)
   @Get()
   getAllThreads() {
     return this.threadService.getAllThreads();
   }
 
-  @UseGuards(JwtAuthGuard, OwnershipGuard)
+  // @UseGuards(JwtAuthGuard, OwnershipGuard)
   @Get(':id')
   getThread(@Param('id') id: string) {
     return this.threadService.getThreadById(Number(id));
   }
 
   @UseGuards(JwtAuthGuard, OwnershipGuard)
-  @Get('mythreads')
+  @Get('my-threads')
   getThreadsByEmail(@Param('email') email: string) {
     return this.threadService.findAllThreadsByEmail(email);
   }
 
   @UseGuards(JwtAuthGuard, OwnershipGuard)
-  @Patch(':id')
+  @Put(':id')
   updateThread(@Param('id') id: string, @Body() data: UpdateThreadDto) {
     return this.threadService.update(Number(id), data);
   }
@@ -41,7 +41,7 @@ export class ThreadController {
 
 
   @UseGuards(JwtAuthGuard, OwnershipGuard)
-  @Roles(Role.ADMIN)
+  // @Roles(Role.ADMIN)
   @Delete(':id')
   deleteThread(@Param('id') id: string) {
     return this.threadService.delete(Number(id));
