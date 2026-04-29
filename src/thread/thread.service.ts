@@ -20,6 +20,10 @@ export class ThreadService {
         return thread;
     }
 
+    async findAllThreadsByEmail(email: string) {
+        return this.threadRepo.findAllThreadsByEmail(email);
+    }
+
     async update(id: number, data: UpdateThreadDto) {
     return this.threadRepo.updateThread(id, data);
     };

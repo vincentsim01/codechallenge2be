@@ -8,34 +8,34 @@ import { Roles } from 'src/auth/decorators/roles.decorator';
 import { Role } from 'src/auth/decorators/roles.decorator';
 import { OwnershipGuard } from 'src/auth/guards/ownership.guard';
 
-@Controller('user')
+@Controller('api')
 // @UseGuards(JwtAuthGuard)
 export class UserController {
   constructor(private readonly userService: UserService) {}
   @UseGuards(JwtAuthGuard, RolesGuard, OwnershipGuard)
   @Roles(Role.ADMIN)
-  @Get()
+  @Get('allusers')
   getAllClients() {
     return this.userService.getAllUsers();
   }
 
   @UseGuards(JwtAuthGuard, OwnershipGuard)
   @Roles(Role.ADMIN)
-  @Get('id/:id')
+  @Get('users/:id')
   getClient(@Param('id') id: string) {
     return this.userService.getUserById(Number(id));
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard, OwnershipGuard)
-  @Roles(Role.ADMIN)
-  @Patch(':id')
+  // @Roles(Role.ADMIN)
+  @Patch('users/:id')
   updateClient(@Param('id') id: string, @Body() data: UpdateUserDto) {
     return this.userService.update(Number(id), data);
   }
 
   @UseGuards(JwtAuthGuard, RolesGuard, OwnershipGuard)
   @Roles(Role.ADMIN)
-  @Delete(':id')
+  @Delete('users/:id')
   deleteClient(@Param('id') id: string) {
     return this.userService.delete(Number(id));
   }
@@ -45,7 +45,7 @@ export class UserController {
     return this.userService.findByEmail(email);
   }
 
-  @Post('signup')
+  @Post('auth/register')
   createUser(
     @Body()
     body: {

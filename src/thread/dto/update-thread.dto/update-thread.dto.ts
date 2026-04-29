@@ -1,5 +1,17 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateThreadDto } from '../create-thread.dto/create-thread.dto';
 
-export class UpdateThreadDto extends PartialType(CreateThreadDto) {}
+import { IsBoolean, IsString, IsOptional, IsEmail, IsNotEmpty, IsNumber, MinLength, Matches } from 'class-validator';
+export class UpdateThreadDto {
+      @IsString()
+      @IsNotEmpty()
+      title: string;
+    
+    
+      @IsString()
+      @IsNotEmpty()
+      message: string;
+    
+      @IsNumber()
+      @IsNotEmpty()
+      userId: number;
+}
 

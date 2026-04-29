@@ -22,6 +22,10 @@ export class ThreadRepository {
     return this.prisma.thread.findMany();
   }
 
+  async findAllThreadsByEmail(email: string) {
+    return this.prisma.thread.findMany();
+  }
+
   async findThreadById(id: number) {
     const thread = await this.prisma.thread.findUnique({
         where: { id },

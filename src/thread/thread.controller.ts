@@ -9,7 +9,7 @@ import { OwnershipGuard } from 'src/auth/guards/ownership.guard';
 // import { Roles } from '../auth/guards/roles.guard';
 import { Role } from 'src/auth/decorators/roles.decorator';
 
-@Controller('thread')
+@Controller('api/threads')
 export class ThreadController {
   constructor(private readonly threadService: ThreadService) {}
 
@@ -27,10 +27,18 @@ export class ThreadController {
   }
 
   @UseGuards(JwtAuthGuard, OwnershipGuard)
+  @Get('mythreads')
+  getThreadsByEmail(@Param('email') email: string) {
+    return this.threadService.findAllThreadsByEmail(email);
+  }
+
+  @UseGuards(JwtAuthGuard, OwnershipGuard)
   @Patch(':id')
   updateThread(@Param('id') id: string, @Body() data: UpdateThreadDto) {
     return this.threadService.update(Number(id), data);
   }
+
+
 
   @UseGuards(JwtAuthGuard, OwnershipGuard)
   @Roles(Role.ADMIN)
@@ -39,7 +47,7 @@ export class ThreadController {
     return this.threadService.delete(Number(id));
   }
 
-  @UseGuards(JwtAuthGuard)
+  @UseGuards(JwtAuthGuard, OwnershipGuard)
   @Post()
   createThread(@Body() dto: CreateThreadDto) {
     return this.threadService.createThread(dto); // temporary userId
