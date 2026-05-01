@@ -1,6 +1,7 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { PrismaService } from '../prisma/prisma.service';
+import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
 @Injectable()
 export class UserService {
@@ -34,14 +35,7 @@ export class UserService {
     //   data,
   }
 
-  createUser(data: {
-    // id:number,
-    name: string,
-    email: string,
-    username: string,
-    password: string,
-    role: 'ADMIN' | 'USER',
-  }) {
+  createUser(data: CreateUserDto) {
     return this.userRepo.createUser(data);
   }
 }

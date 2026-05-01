@@ -21,7 +21,7 @@ export class UserRepository {
         ...data,
         password: hashedPassword,
         displayId,
-        role: data.role,
+        role: data.role ?? 'USER',
       },
     });
   }
