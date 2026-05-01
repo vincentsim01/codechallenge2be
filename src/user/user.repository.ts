@@ -10,7 +10,6 @@ import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-
   async createUser(data: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
     const count = await this.prisma.user.count();
@@ -21,7 +20,7 @@ export class UserRepository {
         ...data,
         password: hashedPassword,
         displayId,
-        role: data.role ?? 'USER',
+        role: 'USER',
       },
     });
   }

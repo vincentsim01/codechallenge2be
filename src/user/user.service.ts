@@ -11,8 +11,8 @@ export class UserService {
     return this.userRepo.findAll();
   }
 
-  getUserById(id: string){
-    const user =  this.userRepo.findOne(id);
+  getUserById(id: string) {
+    const user = this.userRepo.findOne(id);
     if (!user) throw new NotFoundException('User not found');
     return user;
   }

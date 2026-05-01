@@ -12,7 +12,6 @@ export class CreateThreadDto {
 
   @IsNumber()
   @IsNotEmpty()
-  userId: number;
-
+  userId: string;
 }
 
