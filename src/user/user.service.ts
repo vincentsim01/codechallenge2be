@@ -13,19 +13,24 @@ export class UserService {
   }
 
   async getUserById(id: string) {
-    const user = await this.userRepo.findOne(id);
     if (isNaN(Number(id))) {
       throw new BadRequestException('ID must be a number');
     }
-    if (!user) throw new NotFoundException('User not found');
+
+    const user = await this.userRepo.findOne(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
     return user;
   }
 
-  findByEmail(email: string) {
+  async findByEmail(email: string) {
     if (!email.includes('@')) {
       throw new BadRequestException('Invalid email format');
     }
-    const client = this.userRepo.findByEmail(email);
+    const client = await this.userRepo.findByEmail(email);
     if (!client) throw new NotFoundException('client not found');
     return client;
   }
@@ -42,8 +47,6 @@ export class UserService {
       throw new BadRequestException('ID is required');
     }
     return this.userRepo.delete(id);
-    //   where: { id },
-    //   data,
   }
 
   createUser(data: CreateUserDto) {
