@@ -8,7 +8,7 @@ export class UpdateThreadDto {
     
       @IsString()
       @IsNotEmpty()
-      message: string;
+      content: string;
     
       @IsNumber()
       @IsNotEmpty()

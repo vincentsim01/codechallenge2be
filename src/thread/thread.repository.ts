@@ -12,7 +12,7 @@ export class ThreadRepository {
     return this.prisma.thread.create({
       data: {
         title: data.title,
-        message: data.message,
+        content: data.content,
         userId: data.userId,
       },
     });
@@ -42,7 +42,7 @@ export class ThreadRepository {
       where: { id },
         data: {
             title: data.title,
-            message: data.message,
+            content: data.content,
         },
   });
   }

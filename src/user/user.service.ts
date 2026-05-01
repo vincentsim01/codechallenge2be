@@ -10,42 +10,38 @@ export class UserService {
     return this.userRepo.findAll();
   }
 
-    getUserById(id:number){
-        const user =  this.userRepo.findOne(id);
-        if(!user) throw new NotFoundException('User not found');
-        return user;
-    }
+  getUserById(id: string){
+    const user =  this.userRepo.findOne(id);
+    if (!user) throw new NotFoundException('User not found');
+    return user;
+  }
 
-    findByEmail(email:string){
-        const client =  this.userRepo.findByEmail(email);
-        if(!client) throw new NotFoundException('client not found');
-        return client;
-    }
+  findByEmail(email: string) {
+    const client = this.userRepo.findByEmail(email);
+    if (!client) throw new NotFoundException('client not found');
+    return client;
+  }
 
-
-    update(id: number, data: UpdateUserDto) {
+  update(id: string, data: UpdateUserDto) {
     return this.userRepo.update(id, data);
     //   where: { id },
     //   data,
-    };
+  }
 
-    delete(id: number) {
+  delete(id: string) {
     return this.userRepo.delete(id);
     //   where: { id },
     //   data,
-    };
-  
+  }
 
-    createUser(
-        data:{
-            // id:number,
-            name: string,
-            email: string,
-            password: string,
-            role: 'ADMIN' | 'USER',
-
-        }
-    ){
-        return this.userRepo.createUser(data);
-    }
+  createUser(data: {
+    // id:number,
+    name: string,
+    email: string,
+    username: string,
+    password: string,
+    role: 'ADMIN' | 'USER',
+  }) {
+    return this.userRepo.createUser(data);
+  }
 }

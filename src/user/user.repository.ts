@@ -10,14 +10,17 @@ import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async createUser(data: { name: string; email: string; password: string;  role?: 'ADMIN' | 'USER' }) {
+
+  async createUser(data: CreateUserDto) {
     const hashedPassword = await bcrypt.hash(data.password, 10);
+    const count = await this.prisma.user.count();
+    const displayId = `U${(count + 1).toString().padStart(3, '0')}`;
 
     return this.prisma.user.create({
       data: {
-        name: data.name,
-        email: data.email,
+        ...data,
         password: hashedPassword,
+        displayId,
         role: data.role,
       },
     });
@@ -25,34 +28,33 @@ export class UserRepository {
 
   findAll() {
     return this.prisma.user.findMany({
-    //   include: { todos: true },
+      //   include: { todos: true },
     });
   }
 
-  findOne(id: number) {
+  findOne(id: string) {
     return this.prisma.user.findUnique({
       where: { id },
-    //   include: { todos: true },
+      //   include: { todos: true },
     });
   }
 
-    findByEmail(email: string) {
+  findByEmail(email: string) {
     return this.prisma.user.findUnique({
       where: { email },
     });
   }
 
-  update(id: number, data: UpdateUserDto) {
+  update(id: string, data: UpdateUserDto) {
     return this.prisma.user.update({
       where: { id },
       data,
     });
   }
 
-  delete(id: number) {
+  delete(id: string) {
     return this.prisma.user.delete({
       where: { id },
     });
   }
-
 }

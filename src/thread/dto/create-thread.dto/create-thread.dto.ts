@@ -8,7 +8,7 @@ export class CreateThreadDto {
 
   @IsString()
   @IsNotEmpty()
-  message: string;
+  content: string;
 
   @IsNumber()
   @IsNotEmpty()
