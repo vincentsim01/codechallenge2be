@@ -1,8 +1,9 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { UserRepository } from './user.repository';
 import { PrismaService } from '../prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto/update-user.dto';
+
 @Injectable()
 export class UserService {
   constructor(private readonly userRepo: UserRepository, private readonly prisma: PrismaService) {}
@@ -11,25 +12,35 @@ export class UserService {
     return this.userRepo.findAll();
   }
 
-  getUserById(id: string) {
-    const user = this.userRepo.findOne(id);
+  async getUserById(id: string) {
+    const user = await this.userRepo.findOne(id);
+    if (isNaN(Number(id))) {
+      throw new BadRequestException('ID must be a number');
+    }
     if (!user) throw new NotFoundException('User not found');
     return user;
   }
 
   findByEmail(email: string) {
+    if (!email.includes('@')) {
+      throw new BadRequestException('Invalid email format');
+    }
     const client = this.userRepo.findByEmail(email);
     if (!client) throw new NotFoundException('client not found');
     return client;
   }
 
   update(id: string, data: UpdateUserDto) {
+    if (!id) {
+      throw new BadRequestException('ID is required');
+    }
     return this.userRepo.update(id, data);
-    //   where: { id },
-    //   data,
   }
 
   delete(id: string) {
+    if (!id) {
+      throw new BadRequestException('ID is required');
+    }
     return this.userRepo.delete(id);
     //   where: { id },
     //   data,
