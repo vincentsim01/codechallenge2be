@@ -74,7 +74,25 @@ GET api/users/:id
 
 ![Auth Specific User](assets/Auth%20Get%20Specific%20User.PNG)
 
+GET api/threads
 
+![All Threads](assets/Get%20All%20Threads.PNG)
+
+GET api/threads/:id
+
+![Specific Thread](assets/Get%20Specific%20Thread.PNG)
+
+POST api/threads
+
+![Create Thread](assets/POST%20Create%20New%20Thread.PNG)
+
+PUT api/threads/:id
+
+![Update Thread](assets/PUT%20Edit%20Thread.PNG)
+
+DELETE api/threads/:id
+
+![Delete Thread](assets/DELETE%20Thread.PNG)
 
 🧱 Database Schema (Prisma)
 
