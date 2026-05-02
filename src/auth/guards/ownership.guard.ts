@@ -16,9 +16,8 @@ export class OwnershipGuard implements CanActivate {
 
     // Check if the user is accessing their own resource
     // Works for routes like /user/:id or /transactions/user/:userId
-    const resourceUserId = params.userId || params.id;
-    
-    if (resourceUserId && user.userId === Number(resourceUserId)) {
+    const resourceUserId = request.body.userId;
+    if (resourceUserId && user.userId === resourceUserId) {
       return true;
     }
 

@@ -13,10 +13,6 @@ export class UserService {
   }
 
   async getUserById(id: string) {
-    if (isNaN(Number(id))) {
-      throw new BadRequestException('ID must be a number');
-    }
-
     const user = await this.userRepo.findOne(id);
 
     if (!user) {
@@ -36,16 +32,10 @@ export class UserService {
   }
 
   update(id: string, data: UpdateUserDto) {
-    if (!id) {
-      throw new BadRequestException('ID is required');
-    }
     return this.userRepo.update(id, data);
   }
 
   delete(id: string) {
-    if (!id) {
-      throw new BadRequestException('ID is required');
-    }
     return this.userRepo.delete(id);
   }
 

@@ -5,13 +5,11 @@ export class CreateThreadDto {
   @IsNotEmpty()
   title: string;
 
-
   @IsString()
   @IsNotEmpty()
   content: string;
 
-  @IsNumber()
+  @IsString()
   @IsNotEmpty()
   userId: string;
 }
-
